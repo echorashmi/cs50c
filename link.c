@@ -6,6 +6,7 @@ typedef struct node
 {
     int roll_number;
     int age;
+    char *name;
     struct node *next;
 }
 node;
@@ -24,6 +25,7 @@ int main(void)
     }
     n->roll_number = 1;
     n->age = 10;
+    n->name = "Rashmi";
     n->next = NULL;
     list = n;
     
@@ -36,6 +38,7 @@ int main(void)
     }
     n->roll_number = 2;
     n->age = 30;
+    n->name = "Alex";
     n->next = NULL;
     list->next = n;
     
@@ -48,13 +51,27 @@ int main(void)
     }
     n->roll_number = 3;
     n->age = 50;
+    n->name = "Steve";
     n->next = NULL;
     list->next->next = n;
+    
+    //Add number to list:
+    n = malloc(sizeof(node));
+    
+    if (n == NULL)
+    {
+        return 1;
+    }
+    n->roll_number = 4;
+    n->age = 20;
+    n->name = "Kylie";
+    n->next = NULL;
+    list->next->next->next = n;
     
     //Print List:
     for (node *tmp = list; tmp != NULL; tmp = tmp->next)
     {
-        printf("%i: %i\n", tmp->roll_number, tmp->age);
+        printf("Name: %s\tRoll Number: %i\tAge: %i\n", tmp->name, tmp->roll_number, tmp->age);
     }
     
     //Free List:
