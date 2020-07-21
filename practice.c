@@ -1,36 +1,54 @@
-//Next Step: Follow up on my StackExchange question: https://cs50.stackexchange.com/questions/38905/find-hex-values-inside-a-string-in-c
 /* 
-    File of Random Practice Code
+Next Step:
+    1. Find out what is uint8_t Byte.
+    2. Check buffer[4] using bitwise arithmetic. 
+*/
+
+/* 
+    File of Practice Code
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
+
+typedef uint8_t BYTE;
 
 int main(int argc, char *argv[])
 {   
-    /* Find a sub-string in a given string: */
-    char * given_string = "This is a long given string. Happy Programming! 0xff";
+    int counter = 0;
+    int possible_jpeg_counter = 0;
     
-    int length = strlen(given_string);
-    for (int i = 0; i < length; i++)
+    //Read file 512 bytes at a time into memory:
+    FILE * fp = fopen("card.raw", "rb");
+    if (fp)
     {
-        if(given_string[i] == 0xff)
+        BYTE * buffer = malloc(512);
+        while (fread(buffer, 512, 1, fp) == 1)
         {
-            printf("Here: %c\n", given_string[i]);
-            break;
+            counter++;
+            printf("%i", counter);
+            if(buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff)
+            {
+                printf(" - Possible JPEG Detected!\n");
+                possible_jpeg_counter++;
+            }
+            else
+            {
+                printf("\n");
+            }
         }
-        else
-        {
-            printf("Not Here: %c\n", given_string[i]);
-        }
+        fclose(fp);
+        free(buffer);
+        printf("\n%i Possible JPEGs detected\n", possible_jpeg_counter);
     }
     
-     
+    
     /*
     //Load the entire card.raw file into memory:
     
-    char * buffer = 0;
+    unsigned char * buffer = 0;
     long length;
     FILE * f = fopen ("card.raw", "rb");
     
@@ -42,11 +60,15 @@ int main(int argc, char *argv[])
         buffer = malloc (length);
         if (buffer)
         {
-            fread (buffer, 1, length, f);
+            fread (buffer, sizeof(unsigned char), length, f);
         }
         fclose (f);
     }
+    
+    printf("%c", buffer[1000000]);
     */
+    
+    
     /*
     int index = 0;
     int needlelen = 4;
@@ -63,25 +85,6 @@ int main(int argc, char *argv[])
     */
     //Examining random contents of buffer:
     //printf("Hex: %x\n", 0xff);
-    
-    
-    /*
-    
-    Read file 512 bytes at a time into memory:
-    
-    FILE * fp = fopen("card.raw", "rb");
-    if (fp)
-    {
-        void * buffer = malloc(512);
-        while (fread(buffer, 512, 1, fp) == 1)
-        {
-            printf("%s\n", buffer);
-        }
-        fclose(fp);
-        free(buffer);
-    }
-    
-    */
     
     
     /*
