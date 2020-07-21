@@ -6,16 +6,47 @@ typedef struct node
 {
     int roll_number;
     int age;
-    char *name;
+    //char *name;
     struct node *next;
 }
 node;
 
 int main(void)
 {
-    //Create a list of size 0:
-    node *list = NULL;
+    node *list, *head, *p;
     
+    //Create a list of size 0:
+    int n, i;
+    head = NULL;
+    list = NULL;
+    
+    printf("Number of Elements: ");
+    scanf("%d", &n);
+    
+    //Run a Loop to get inputs. 
+    for (i = 0; i < n; i++)
+    {
+        //Generate a Node with input from the user:
+            p = malloc(sizeof(struct node));
+            printf("Enter Roll Number: ");
+            scanf("%i", &p->roll_number);
+            printf("Enter Age: ");
+            scanf("%i", &p->age);
+            //printf("Enter Name: ");
+            //scanf("%s", p->name);
+            p->next = NULL;
+        
+        //If the node is at 0, set this node to the head 
+        if(head == NULL)
+            head = p;
+        //If not 0, set this node to the next in the list
+        else  
+            list->next = p;
+            
+        list = p;
+    }
+    
+    /*
     //Add number to list:
     node *n = malloc(sizeof(node));
     
@@ -81,7 +112,44 @@ int main(void)
         free(list);
         list = tmp;
     }
+    */
 }
+    
+    
+/*
+head = NULL;
+
+for (i = 0; i < n; i++)
+{
+    p = malloc(sizeof(struct node));
+    printf("Enter Roll Number: ");
+    scanf("%i", &p->roll_number);
+    p->next = NULL;
+    if(head == NULL)
+        head = p;
+    else
+        prev->next = p;
+    prev = p;
+}
+
+//Print List:
+for (node *tmp = p; tmp != NULL; tmp = tmp->next)
+{
+    printf("Roll Number: %i\n", tmp->roll_number);
+}
+
+//Free List:
+while(p != NULL)
+{
+    node *tmp = p->next;
+    free(p);
+    p = tmp;
+}
+
+return 0;
+    
+}
+*/
 
 
 
