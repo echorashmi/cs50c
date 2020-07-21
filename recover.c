@@ -3,12 +3,29 @@
 
 int main(int argc, char *argv[])
 {
-    char block[512];
-    FILE* stream = fopen("card.raw", "r");
-    if(stream != NULL)
+    //Load the entire card.raw file into memory:
+    char * buffer = 0;
+    long length;
+    FILE * f = fopen ("card.raw", "rb");
+    
+    if (f)
     {
-        fread(block, 512, 1, stream);
-        printf("%s", block);
-    }
-    fclose(stream);
+        fseek (f, 0, SEEK_END);
+        length = ftell (f);
+        fseek (f, 0, SEEK_SET);
+        buffer = malloc (length);
+        if (buffer)
+        {
+            fread (buffer, 1, length, f);
+        }
+        fclose (f);
+    } 
+    
 }
+
+
+
+
+
+
+
