@@ -1,9 +1,5 @@
 /* 
-Next Step:
-    1. Find out what is uint8_t Byte.
-    2. Check buffer[4] using bitwise arithmetic. 
-*/
-
+    Next Step:
 /* 
     File of Practice Code
 */
@@ -29,7 +25,7 @@ int main(int argc, char *argv[])
         {
             counter++;
             printf("%i", counter);
-            if(buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff)
+            if(buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff && (buffer[3] & 0xf0) == 0xe0)
             {
                 printf(" - Possible JPEG Detected!\n");
                 possible_jpeg_counter++;
