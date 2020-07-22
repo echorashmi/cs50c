@@ -1,5 +1,6 @@
 /*
-    Next Step: As an exercise, count how many bytes will be written to each JPEG. 
+    Next Step: As an exercise, count how many bytes will be written to each JPEG.
+    Re-watch and break down from Brian's Pseudocode on Walkthrough video. 
 */
 
 #include <stdio.h>
@@ -34,18 +35,27 @@ int main(int argc, char *argv[])
         //If start of JPEG is found, do this:
         if(buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff && (buffer[3] & 0xf0) == 0xe0)
         {
-            byte_counter = 0;
-            sprintf(filename, "%03i.jpg", possible_jpeg_counter);
-            //FILE *img = fopen(filename, "w");
-            printf("JPEG will be created with name: %s\n", filename);
-            possible_jpeg_counter++;
+            //If start of new JPG, create a file:
+            if()
+            {
+                sprintf(filename, "%03i.jpg", possible_jpeg_counter);
+                //FILE *img = fopen(filename, "w");
+                printf("\n\n-------Created File %s-------\n", filename);
+                possible_jpeg_counter++;
+                printf("Writing 512 bytes to file\n");
+            }
+            //Close the file you've just been writing to. 
+            else
+            {
+                printf("Writing 512 bytes to file\n");
+            }
+            printf("-------Closing File %s-------\n", filename);
         }
-        //Else, continue writing to previous JPEG
+        //If already found JPG
         else
         {
-            
+            //Keep Writing to it, the next block of every jpeg
         }
-        byte_counter =  byte_counter + 512;
     }
     fclose(fp);
     free(filename);
