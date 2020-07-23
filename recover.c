@@ -1,6 +1,6 @@
 /*
     Next Step: As an exercise, count how many bytes will be written to each JPEG.
-    Re-watch and break down from Brian's Pseudocode on Walkthrough video. 
+    Re-watch and break down from Brian's Pseudocode on Walkthrough video.
 */
 
 #include <stdio.h>
@@ -29,36 +29,40 @@ int main(int argc, char *argv[])
     }
     BYTE * buffer = malloc(512);
     char * filename = malloc(7);
+    FILE * img = malloc(512);
     while (fread(buffer, 512, 1, fp) == 1)
     {
         counter++;
         //If start of JPEG is found, do this:
         if(buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff && (buffer[3] & 0xf0) == 0xe0)
         {
-            //If start of new JPG, create a file:
-            if()
+            if(possible_jpeg_counter == 0)
             {
                 sprintf(filename, "%03i.jpg", possible_jpeg_counter);
-                //FILE *img = fopen(filename, "w");
-                printf("\n\n-------Created File %s-------\n", filename);
-                possible_jpeg_counter++;
-                printf("Writing 512 bytes to file\n");
+                img = fopen(filename, "w");   printf("\n\n-------Created File %s-------\n", filename);
+                fwrite(buffer, 512, 1, img);  printf("Writing 512 bytes to file\n");
             }
-            //Close the file you've just been writing to. 
+
+            //Close the file you've just been writing to.
             else
             {
-                printf("Writing 512 bytes to file\n");
+                sprintf(filename, "%03i.jpg", possible_jpeg_counter);
+                fclose(img);   //printf("-------Closed File %s-------\n", filename);
+                img = fopen(filename, "w"); //printf("\n\n-------Created File %s-------\n", filename);
+                fwrite(buffer, 512, 1, img); //printf("Writing 512 bytes to file\n");
             }
-            printf("-------Closing File %s-------\n", filename);
+            possible_jpeg_counter++;
         }
-        //If already found JPG
+
+        //Else, if this is an existing JPEG
         else
         {
-            //Keep Writing to it, the next block of every jpeg
+            //if there is a file open (this "if" avoids the first case where there is no file open.)
+            if(possible_jpeg_counter > 0)
+                fwrite(buffer, 512, 1, img); //printf("Writing 512 bytes to file %s\n", filename);
         }
     }
     fclose(fp);
     free(filename);
     free(buffer);
-    printf("\n%i Possible JPEGs detected\n", possible_jpeg_counter);
 }
