@@ -7,7 +7,7 @@
 
 #include "dictionary.h"
 
-// Undefine any definitions
+// Undefine any custom definitions made by students, this ensures that the original calculation code by C is used in this program execution. 
 #undef calculate
 #undef getrusage
 

@@ -8,7 +8,7 @@
 typedef struct node
 {
     char word[LENGTH + 1];
-    struct node *next;
+    struct node *next; 
 }
 node;
 
