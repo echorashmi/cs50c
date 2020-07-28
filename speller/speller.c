@@ -19,12 +19,18 @@ double calculate(const struct rusage *b, const struct rusage *a);
 
 int main(int argc, char *argv[])
 {
+    
+    /*
+    Temporarily commenting to reduce number of steps to dev & debug. 
+    When done and ready to test with live user input, uncomment this whole block
+    
     // Check for correct number of args
     if (argc != 2 && argc != 3)
     {
         printf("Usage: ./speller [DICTIONARY] text\n");
         return 1;
     }
+    */
 
     // Structures for timing data
     struct rusage before, after;
@@ -51,7 +57,14 @@ int main(int argc, char *argv[])
     time_load = calculate(&before, &after);
 
     // Try to open text
-    char *text = (argc == 3) ? argv[2] : argv[1];
+    /*
+        Temporarily commenting to reduce number of steps to dev & debug. 
+        When done, remove line 65. and uncomment line 64.
+    */
+    //char *text = (argc == 3) ? argv[2] : argv[1]; //Line 64
+    char *text = "texts/aca.txt"; //Line 65
+    
+    
     FILE *file = fopen(text, "r");
     if (file == NULL)
     {

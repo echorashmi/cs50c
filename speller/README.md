@@ -1,5 +1,5 @@
 Next Action:
-1. Resume reading spec from "texts/" onwards on page 3/7.
+1. Start on the load function. 
 
 Tasklist:
 1. dictionary.c line 15 - change n to update the of buckets in hash table
